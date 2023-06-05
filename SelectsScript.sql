@@ -34,8 +34,8 @@ select g.name, count(genre_id) as count
 select count(*)
   from track t
  where album_id in (select a.id
-  					  from album a 
- 					 where release_year between 2006 and 2010);
+  					          from album a 
+ 					           where release_year between 2006 and 2010);
 
 -- Средняя продолжительность треков по каждому альбому
 select a.id, avg(t.duration)  
@@ -48,10 +48,10 @@ select a.id, avg(t.duration)
 select a.name
   from artist a
  where a.id not in (select art.id 
-  					  from album al
-  					  join artist_album aa on aa.album_id = al.id 
-  					  join artist art on art.id = aa.artist_id 
- 			   		 where al.release_year = 2006);
+  					          from album al
+  					          join artist_album aa on aa.album_id = al.id 
+  					          join artist art on art.id = aa.artist_id 
+ 			   		         where al.release_year = 2006);
 
 -- Названия сборников, в которых присутствует конкретный исполнитель ('Mylène Farmer')
 select distinct c.name
@@ -59,17 +59,17 @@ select distinct c.name
   join track_collection tc on tc.track_id = t.id 
   join collection c on c.id = tc.collection_id
  where t.album_id in (select al.id 
-  					    from artist a
-  						join artist_album aa on aa.artist_id = a.id 
-  						join album al on al.id = aa.album_id 
- 					   where a.name like 'Mylène Farmer');
+  					            from artist a
+  						          join artist_album aa on aa.artist_id = a.id 
+  						          join album al on al.id = aa.album_id 
+ 					             where a.name like 'Mylène Farmer');
  					
 -- Названия альбомов, в которых присутствуют исполнители более чем одного жанра
 select distinct al.name
   from (select ga.artist_id, count(ga.genre_id) 
-  		  from genre_artist ga 
- 		 group by ga.artist_id
-		having count(ga.genre_id) > 1) art
+  		    from genre_artist ga 
+ 		     group by ga.artist_id
+		    having count(ga.genre_id) > 1) art
   join artist_album aa on art.artist_id = aa.artist_id 
   join album al on al.id = aa.album_id;
  					  
@@ -77,7 +77,7 @@ select distinct al.name
 select t.name
   from track t 
  where t.id not in (select tc.track_id 
- 					  from track_collection tc);
+ 					            from track_collection tc);
   
 -- Исполнитель или исполнители, написавшие самый короткий по продолжительности трек, — теоретически таких треков может быть несколько
 select a.name
@@ -85,17 +85,15 @@ select a.name
   join artist_album aa on aa.album_id = t.album_id 
   join artist a on a.id = aa.artist_id 
  where t.duration = (select min(duration)
-  					   from track);
+  					           from track);
  					 
 -- Названия альбомов, содержащих наименьшее количество треков
 select al.name
   from album al
   join (select album_id, count(*) n
-  		  from track
+  		    from track
          group by album_id) cnt on cnt.album_id = al.id
  where cnt.n = (select min(n) 
-  				  from (select album_id, count(*) n
-  		  				  from track
-         		 group by album_id) sub);
-
-  
+  				        from (select album_id, count(*) n
+  		  				          from track
+         		             group by album_id) sub);
