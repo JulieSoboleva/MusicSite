@@ -51,6 +51,14 @@ values ('Ruins of Athens Overture', 381, 1),
 	   ('Under A Violet Moon', 373, 16),
 	   ('Just Call My Name', 289, 17);
 
+insert into track (name, duration, album_id)
+values ('my own', 180, 1), ('own my', 181, 2),
+	   ('my', 182, 3), ('oh my God', 183, 4),
+	   ('myself', 190, 5), ('by myself', 191, 6),
+	   ('bemy self', 192, 7), ('myself by', 193, 8),
+	   ('by myself by', 194, 9), ('beemy', 195, 10), 
+	   ('premyne', 196, 11);
+
 insert into collection(name, release_year)
 values ('French Music', 2020), ('Country Music', 2008), 
 	   ('Instrumental Music', 2000), ('Music for the soul', 2021);

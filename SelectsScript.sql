@@ -92,3 +92,26 @@ select al.name
   				        from (select album_id, count(*) n
   		  				          from track
          		             group by album_id) sub);
+
+-- Название треков, которые содержат слово «мой» или «my»
+-- Способ 1
+select name
+  from track 
+ where name ilike 'my %'
+    or name ilike '% my'
+    or name ilike '% my %'
+    or name ilike 'my'
+    or name ilike 'мой %'
+    or name ilike '% мой'
+    or name ilike '% мой %'
+    or name ilike 'мой';
+
+-- Способ 2
+select name
+  from track
+ where string_to_array(lower(name), ' ') && array['my', 'мой']; 
+
+-- Способ 3
+select name 
+  from track
+ where name ~* '(\mmy )|( my\M)|( my )|(\mmy\M)|(\mмой )|( мой\M)|( мой )|(\mмой\M)';
