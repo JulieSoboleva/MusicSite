@@ -18,11 +18,6 @@ select name
   from artist a 
  where (length(name) - length(replace(name, ' ', '')) + 1) = 1;
 
--- Название треков, которые содержат слово «мой» или «my»
-select name
-  from track t 
- where position('my' in lower(name)) > 0;
- 
 -- Количество исполнителей в каждом жанре
 select g.name, count(genre_id) as count
   from genre_artist ga, genre g
